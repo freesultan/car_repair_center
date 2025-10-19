@@ -1,28 +1,28 @@
 {
-  "name": "car_repair_project",
-  "version": "1.0.0",
-  "description": "A web-based responsive PWA application for car repair centers. This application allows: - Management of car repair requests - Documentation with photos - Collection of customer approvals through digital signatures or voice recording - Complete operation within a local network environment",
-  "main": "index.js",
+  "name": "car-repair-center-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext ts,tsx",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\""
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "@reduxjs/toolkit": "^2.9.1",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-redux": "^9.2.0",
-    "react-router-dom": "^7.9.4"
+    "@reduxjs/toolkit": "^1.9.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.1",
+    "react-router-dom": "^6.14.1"
   },
   "devDependencies": {
-    "@types/node": "^24.8.1",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "@vitejs/plugin-react": "^5.0.4",
-    "typescript": "^5.9.3",
-    "vite": "^7.1.10"
+    "@types/node": "^20.4.1",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@vitejs/plugin-react": "^4.0.3",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.2"
   }
 }
