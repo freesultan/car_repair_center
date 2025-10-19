@@ -3,6 +3,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  text-align: start; /* Works for both RTL and LTR */
 }
 
 .app-header {
@@ -32,8 +33,23 @@ button {
   cursor: pointer;
   font-size: 1rem;
   margin-bottom: 1rem;
+  font-family: inherit; /* Inherit font for buttons */
 }
 
 button:hover {
   background-color: #2980b9;
+}
+
+.language-toggle {
+  background-color: var(--secondary-color);
+  margin-top: 1rem;
+}
+
+/* Add some RTL specific spacing adjustments */
+[dir="rtl"] .card {
+  text-align: right;
+}
+
+[dir="ltr"] .card {
+  text-align: left;
 }

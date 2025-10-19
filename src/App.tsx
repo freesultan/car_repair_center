@@ -1,23 +1,32 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import './styles/App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const { t, i18n } = useTranslation();
+  
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language === 'fa' ? 'en' : 'fa');
+  };
 
   return (
-    <div className="app">
+    <div className="app" dir={i18n.language === 'fa' ? 'rtl' : 'ltr'}>
       <header className="app-header">
-        <h1>Car Repair Center</h1>
-        <p>Welcome to the Car Repair Center Management System</p>
+        <h1>{t('app.title')}</h1>
+        <p>{t('app.welcome')}</p>
       </header>
       <main>
         <div className="card">
           <button onClick={() => setCount((count) => count + 1)}>
-            Button clicked {count} times
+            {count === 0 ? t('common.create') : `${t('common.create')} ${count}`}
           </button>
           <p>
-            Edit <code>src/App.tsx</code> and save to test HMR
+            {t('repairs.description')}
           </p>
+          <button onClick={toggleLanguage} className="language-toggle">
+            {i18n.language === 'fa' ? 'English' : 'فارسی'}
+          </button>
         </div>
       </main>
     </div>

@@ -1,0 +1,57 @@
+{
+  "app": {
+    "title": "سیستم مدیریت تعمیرگاه خودرو",
+    "welcome": "به سیستم مدیریت تعمیرگاه خودرو خوش آمدید"
+  },
+  "common": {
+    "save": "ذخیره",
+    "cancel": "انصراف",
+    "delete": "حذف",
+    "edit": "ویرایش",
+    "create": "ایجاد",
+    "search": "جستجو",
+    "loading": "در حال بارگذاری...",
+    "error": "خطا رخ داده است",
+    "success": "عملیات با موفقیت انجام شد",
+    "confirm": "تایید",
+    "back": "بازگشت"
+  },
+  "auth": {
+    "login": "ورود",
+    "logout": "خروج",
+    "username": "نام کاربری",
+    "password": "رمز عبور"
+  },
+  "repairs": {
+    "title": "تعمیرات",
+    "newRepair": "تعمیر جدید",
+    "status": "وضعیت",
+    "description": "توضیحات",
+    "estimatedCost": "هزینه تخمینی",
+    "assignedTo": "اختصاص یافته به"
+  },
+  "customers": {
+    "title": "مشتریان",
+    "newCustomer": "مشتری جدید",
+    "name": "نام",
+    "phone": "تلفن",
+    "email": "ایمیل"
+  },
+  "vehicles": {
+    "title": "خودروها",
+    "newVehicle": "خودرو جدید",
+    "make": "سازنده",
+    "model": "مدل",
+    "year": "سال",
+    "licensePlate": "پلاک",
+    "vin": "شماره شاسی"
+  },
+  "approvals": {
+    "title": "تاییدیه‌ها",
+    "signature": "امضاء دیجیتال",
+    "voice": "ضبط صدا",
+    "pleaseSign": "لطفا امضاء کنید",
+    "pleaseSpeak": "لطفا تایید خود را به صورت صوتی ضبط کنید",
+    "confirmApproval": "تایید"
+  }
+}

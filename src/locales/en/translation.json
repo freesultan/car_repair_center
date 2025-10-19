@@ -1,0 +1,57 @@
+{
+  "app": {
+    "title": "Car Repair Center Management System",
+    "welcome": "Welcome to the Car Repair Center Management System"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Operation completed successfully",
+    "confirm": "Confirm",
+    "back": "Back"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "username": "Username",
+    "password": "Password"
+  },
+  "repairs": {
+    "title": "Repairs",
+    "newRepair": "New Repair",
+    "status": "Status",
+    "description": "Description",
+    "estimatedCost": "Estimated Cost",
+    "assignedTo": "Assigned To"
+  },
+  "customers": {
+    "title": "Customers",
+    "newCustomer": "New Customer",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email"
+  },
+  "vehicles": {
+    "title": "Vehicles",
+    "newVehicle": "New Vehicle",
+    "make": "Make",
+    "model": "Model",
+    "year": "Year",
+    "licensePlate": "License Plate",
+    "vin": "VIN"
+  },
+  "approvals": {
+    "title": "Approvals",
+    "signature": "Digital Signature",
+    "voice": "Voice Recording",
+    "pleaseSign": "Please sign here",
+    "pleaseSpeak": "Please record your verbal approval",
+    "confirmApproval": "Confirm Approval"
+  }
+}

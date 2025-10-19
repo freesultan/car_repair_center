@@ -13,9 +13,22 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: Tahoma, Arial, sans-serif; /* Better font for Persian */
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);
+}
+
+/* RTL specific styles */
+html[lang='fa'] body {
+  font-family: 'Vazir', 'Tahoma', sans-serif; /* Persian font */
+}
+
+/* Add Vazir font for Persian text */
+@font-face {
+  font-family: 'Vazir';
+  src: url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/Vazir-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
