@@ -1,0 +1,85 @@
+/* IRANSans Font - Commercial font, you need to purchase and download */
+@font-face {
+  font-family: 'IRANSans';
+  src: url('/fonts/iransans/IRANSansWeb.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  src: url('/fonts/iransans/IRANSansWeb_Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  src: url('/fonts/iransans/IRANSansWeb_Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IRANSans';
+  src: url('/fonts/iransans/IRANSansWeb_Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Vazir Font - Free alternative */
+@font-face {
+  font-family: 'Vazir';
+  src: url('/fonts/vazir/Vazir.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazir';
+  src: url('/fonts/vazir/Vazir-Bold.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazir';
+  src: url('/fonts/vazir/Vazir-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Vazir';
+  src: url('/fonts/vazir/Vazir-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Persian Font Family */
+:root {
+  --font-family-persian: 'IRANSans', 'Vazir', 'Tahoma', sans-serif;
+}
+
+/* Apply Persian font to body when language is Farsi */
+html[lang='fa'] body {
+  font-family: var(--font-family-persian);
+}
+
+/* Persian numbers class - can be applied when needed */
+.persian-numbers {
+  font-feature-settings: "tnum";
+}
+
+/* For Western numbers in Persian text when needed */
+.western-numbers {
+  font-feature-settings: "lnum";
+}
