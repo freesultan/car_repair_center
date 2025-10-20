@@ -28,6 +28,11 @@
     "forgotPassword": "فراموشی رمز عبور",
     "changePassword": "تغییر رمز عبور"
   },
+  "user": {
+    "profile": "پروفایل",
+    "settings": "تنظیمات",
+    "account": "حساب کاربری"
+  },
   "nav": {
     "dashboard": "داشبورد",
     "customers": "مشتریان",

@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAppSelector } from './store';
 import { CircularProgress, Box } from '@mui/material';
 
@@ -45,20 +45,34 @@ const LoadingFallback = () => (
 // Auth guard for protected routes
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const location = useLocation();
+  
+  console.log('ProtectedRoute check - isAuthenticated:', isAuthenticated, 'path:', location.pathname);
   
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    // Redirect to login but remember where the user was trying to go
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
   
   return children;
 };
 
 const AppRoutes = () => {
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const location = useLocation();
+  
+  // Log authentication state on route changes for debugging
+  useEffect(() => {
+    console.log('Route changed - isAuthenticated:', isAuthenticated, 'path:', location.pathname);
+  }, [location.pathname, isAuthenticated]);
+  
   return (
     <Suspense fallback={<LoadingFallback />}>
       <Routes>
         {/* Public routes */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={
+          isAuthenticated ? <Navigate to="/" replace /> : <Login />
+        } />
         
         {/* Protected routes */}
         <Route

@@ -9,10 +9,22 @@ interface AuthState {
   error: string | null;
 }
 
+// Check for token and user in localStorage on initialization
+const storedToken = localStorage.getItem('token');
+let storedUser = null;
+try {
+  const userString = localStorage.getItem('user');
+  if (userString) {
+    storedUser = JSON.parse(userString);
+  }
+} catch (error) {
+  console.error('Error parsing stored user:', error);
+}
+
 const initialState: AuthState = {
-  isAuthenticated: false,
-  user: null,
-  token: localStorage.getItem('token'),
+  isAuthenticated: !!storedToken,
+  user: storedUser,
+  token: storedToken,
   loading: false,
   error: null,
 };
@@ -30,7 +42,10 @@ export const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.loading = false;
+      
+      // Save both token and user to localStorage
       localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.loading = false;
@@ -40,7 +55,10 @@ export const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.token = null;
+      
+      // Remove from localStorage
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
     },
   },
 });

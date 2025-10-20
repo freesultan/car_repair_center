@@ -28,6 +28,11 @@
     "forgotPassword": "Forgot Password",
     "changePassword": "Change Password"
   },
+  "user": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "account": "Account"
+  },
   "nav": {
     "dashboard": "Dashboard",
     "customers": "Customers",

@@ -12,12 +12,27 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { PhotoGallery } from '../../../components/media';
 
-// Mock data - would come from API in real app
+// Using placeholder.com for image placeholders
+const getPlaceholderImage = (index: number, category: string) => {
+  // Colors for different categories
+  const colors = {
+    pre_repair: '1976d2', // blue
+    during_repair: 'ff9800', // orange
+    post_repair: '4caf50', // green
+    damaged_parts: 'f44336', // red
+  };
+  
+  const color = colors[category as keyof typeof colors] || colors.pre_repair;
+  // Using placeholder.com with category as text
+  return `https://via.placeholder.com/400x300/${color}/ffffff?text=${category.replace('_', '+')}`;
+};
+
+// Mock data using placeholder.com images
 const mockPhotos = [
   {
     id: 1,
-    imageUrl: 'https://source.unsplash.com/random/800x600?car&damage=1',
-    thumbnailUrl: 'https://source.unsplash.com/random/400x300?car&damage=1',
+    imageUrl: getPlaceholderImage(1, 'pre_repair'),
+    thumbnailUrl: getPlaceholderImage(1, 'pre_repair'),
     description: 'دمپر عقب سمت راننده آسیب دیده است',
     category: 'pre_repair' as const,
     createdAt: '2025-10-19T14:30:00Z',
@@ -25,8 +40,8 @@ const mockPhotos = [
   },
   {
     id: 2,
-    imageUrl: 'https://source.unsplash.com/random/800x600?car&damage=2',
-    thumbnailUrl: 'https://source.unsplash.com/random/400x300?car&damage=2',
+    imageUrl: getPlaceholderImage(2, 'pre_repair'),
+    thumbnailUrl: getPlaceholderImage(2, 'pre_repair'),
     description: 'خراشیدگی روی درب عقب',
     category: 'pre_repair' as const,
     createdAt: '2025-10-19T14:32:00Z',
@@ -34,8 +49,8 @@ const mockPhotos = [
   },
   {
     id: 3,
-    imageUrl: 'https://source.unsplash.com/random/800x600?car&repair=1',
-    thumbnailUrl: 'https://source.unsplash.com/random/400x300?car&repair=1',
+    imageUrl: getPlaceholderImage(3, 'during_repair'),
+    thumbnailUrl: getPlaceholderImage(3, 'during_repair'),
     description: 'تعویض دمپر عقب',
     category: 'during_repair' as const,
     createdAt: '2025-10-19T16:15:00Z',
@@ -43,8 +58,8 @@ const mockPhotos = [
   },
   {
     id: 4,
-    imageUrl: 'https://source.unsplash.com/random/800x600?car&repair=2',
-    thumbnailUrl: 'https://source.unsplash.com/random/400x300?car&repair=2',
+    imageUrl: getPlaceholderImage(4, 'during_repair'),
+    thumbnailUrl: getPlaceholderImage(4, 'during_repair'),
     description: 'صافکاری درب عقب',
     category: 'during_repair' as const,
     createdAt: '2025-10-19T16:45:00Z',
@@ -52,8 +67,8 @@ const mockPhotos = [
   },
   {
     id: 5,
-    imageUrl: 'https://source.unsplash.com/random/800x600?car&fixed=1',
-    thumbnailUrl: 'https://source.unsplash.com/random/400x300?car&fixed=1',
+    imageUrl: getPlaceholderImage(5, 'post_repair'),
+    thumbnailUrl: getPlaceholderImage(5, 'post_repair'),
     description: 'نمای نهایی دمپر تعویض شده',
     category: 'post_repair' as const,
     createdAt: '2025-10-20T10:20:00Z',
