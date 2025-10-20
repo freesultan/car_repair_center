@@ -10,6 +10,7 @@ import AppLayout from './components/layout/AppLayout';
 const Login = lazy(() => import('./pages/auth/Login'));
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'));
 const CustomersList = lazy(() => import('./pages/customers/CustomersList'));
+const CustomerCreate = lazy(() => import('./pages/customers/CustomerCreate'));
 const CustomerDetail = lazy(() => import('./pages/customers/CustomerDetail'));
 const VehiclesList = lazy(() => import('./pages/vehicles/VehiclesList'));
 const VehicleDetail = lazy(() => import('./pages/vehicles/VehicleDetail'));
@@ -61,6 +62,7 @@ const AppRoutes = () => {
           <Route index element={<Dashboard />} />
           <Route path="customers">
             <Route index element={<CustomersList />} />
+            <Route path="new" element={<CustomerCreate />} />
             <Route path=":id" element={<CustomerDetail />} />
           </Route>
           <Route path="vehicles">

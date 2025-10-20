@@ -1,0 +1,10 @@
+{
+  "required": "This field is required",
+  "invalidEmail": "Invalid email address",
+  "invalidPhone": "Phone number must be in 09XXXXXXXXX format",
+  "minLength": "Enter at least {{count}} characters",
+  "maxLength": "Enter at most {{count}} characters",
+  "passwordMismatch": "Passwords do not match",
+  "invalidYear": "Invalid year",
+  "invalidLicensePlate": "Invalid license plate"
+}

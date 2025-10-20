@@ -45,13 +45,15 @@
   "customers": {
     "title": "Customers",
     "newCustomer": "New Customer",
+    "editCustomer": "Edit Customer",
     "name": "Name",
     "phone": "Phone",
     "email": "Email",
     "address": "Address",
     "customerDetails": "Customer Details",
     "viewingCustomer": "Viewing Customer with ID",
-    "vehicles": "Customer's Vehicles"
+    "vehicles": "Customer's Vehicles",
+    "clickAddToCreate": "Click the 'New Customer' button to create a new customer"
   },
   "vehicles": {
     "title": "Vehicles",
@@ -82,5 +84,15 @@
     "pageNotFound": "Page Not Found",
     "serverError": "Server Error",
     "networkError": "Network Error"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "invalidPhone": "Phone number must be in 09XXXXXXXXX format",
+    "minLength": "Enter at least {{count}} characters",
+    "maxLength": "Enter at most {{count}} characters",
+    "passwordMismatch": "Passwords do not match",
+    "invalidYear": "Invalid year",
+    "invalidLicensePlate": "Invalid license plate"
   }
 }

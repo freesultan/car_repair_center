@@ -4,13 +4,21 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import translationFA from './locales/fa/translation.json';
 import translationEN from './locales/en/translation.json';
+import validationFA from './locales/fa/validation.json';
+import validationEN from './locales/en/validation.json';
 
 const resources = {
   fa: {
-    translation: translationFA,
+    translation: {
+      ...translationFA,
+      validation: validationFA
+    },
   },
   en: {
-    translation: translationEN,
+    translation: {
+      ...translationEN,
+      validation: validationEN
+    },
   },
 };
 

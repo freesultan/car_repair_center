@@ -45,13 +45,15 @@
   "customers": {
     "title": "مشتریان",
     "newCustomer": "مشتری جدید",
+    "editCustomer": "ویرایش مشتری",
     "name": "نام",
     "phone": "تلفن",
     "email": "ایمیل",
     "address": "آدرس",
     "customerDetails": "مشخصات مشتری",
     "viewingCustomer": "مشاهده مشتری با شناسه",
-    "vehicles": "خودروهای مشتری"
+    "vehicles": "خودروهای مشتری",
+    "clickAddToCreate": "روی دکمه «مشتری جدید» کلیک کنید تا یک مشتری جدید ایجاد کنید"
   },
   "vehicles": {
     "title": "خودروها",
@@ -82,5 +84,15 @@
     "pageNotFound": "صفحه مورد نظر یافت نشد",
     "serverError": "خطای سرور",
     "networkError": "خطای اتصال به شبکه"
+  },
+  "validation": {
+    "required": "این فیلد الزامی است",
+    "invalidEmail": "ایمیل وارد شده معتبر نیست",
+    "invalidPhone": "شماره تلفن باید به فرمت ۰۹XXXXXXXXX باشد",
+    "minLength": "حداقل {{count}} کاراکتر وارد کنید",
+    "maxLength": "حداکثر {{count}} کاراکتر وارد کنید",
+    "passwordMismatch": "رمزهای عبور مطابقت ندارند",
+    "invalidYear": "سال وارد شده معتبر نیست",
+    "invalidLicensePlate": "پلاک خودرو معتبر نیست"
   }
 }
