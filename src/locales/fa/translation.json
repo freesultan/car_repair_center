@@ -16,7 +16,9 @@
     "confirm": "تایید",
     "back": "بازگشت",
     "backToHome": "بازگشت به صفحه اصلی",
-    "comingSoon": "به زودی"
+    "comingSoon": "به زودی",
+    "close": "بستن",
+    "view": "مشاهده"
   },
   "auth": {
     "login": "ورود",
@@ -71,6 +73,9 @@
   "repairs": {
     "title": "تعمیرات",
     "newRepair": "تعمیر جدید",
+    "id": "شناسه",
+    "vehicle": "خودرو",
+    "customer": "مشتری",
     "status": "وضعیت",
     "description": "توضیحات",
     "estimatedCost": "هزینه تخمینی",
@@ -78,7 +83,50 @@
     "assignedTo": "اختصاص یافته به",
     "repairDetails": "جزئیات تعمیر",
     "viewingRepair": "مشاهده تعمیر با شناسه",
-    "photos": "تصاویر تعمیر"
+    "photos": "تصاویر تعمیر",
+    "viewPhotos": "مشاهده تصاویر",
+    "addPhoto": "افزودن تصویر جدید",
+    "actions": "عملیات",
+    "repairId": "شناسه تعمیر",
+    "statuses": {
+      "registered": "ثبت شده",
+      "in_progress": "در حال انجام",
+      "waiting_approval": "در انتظار تایید",
+      "approved": "تایید شده",
+      "completed": "تکمیل شده",
+      "cancelled": "لغو شده"
+    }
+  },
+  "media": {
+    "photos": "تصاویر",
+    "addPhoto": "افزودن تصویر",
+    "addFirstPhoto": "افزودن اولین تصویر",
+    "capturePhoto": "گرفتن تصویر جدید",
+    "category": "دسته‌بندی",
+    "description": "توضیحات",
+    "retake": "عکس مجدد",
+    "capture": "ثبت تصویر",
+    "capturedImage": "تصویر گرفته شده",
+    "cameraAccessError": "خطا در دسترسی به دوربین",
+    "cameraTips": "دوربین را ثابت نگه دارید و از نور کافی اطمینان حاصل کنید",
+    "imageTips": "توضیحات دقیق برای تصویر وارد کنید تا بعدا قابل شناسایی باشد",
+    "uploadFromGallery": "آپلود از گالری",
+    "saving": "در حال ذخیره تصویر...",
+    "noPhotos": "هیچ تصویری ثبت نشده است",
+    "noPhotosInCategory": "هیچ تصویری در این دسته‌بندی وجود ندارد",
+    "viewMode": {
+      "grid": "نمای شبکه‌ای",
+      "list": "نمای لیستی"
+    },
+    "filters": {
+      "all": "همه"
+    },
+    "categories": {
+      "pre_repair": "قبل از تعمیر",
+      "during_repair": "حین تعمیر",
+      "post_repair": "بعد از تعمیر",
+      "damaged_parts": "قطعات آسیب دیده"
+    }
   },
   "errors": {
     "pageNotFound": "صفحه مورد نظر یافت نشد",

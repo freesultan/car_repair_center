@@ -9,13 +9,23 @@ import AppLayout from './components/layout/AppLayout';
 // Lazy loaded pages
 const Login = lazy(() => import('./pages/auth/Login'));
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'));
+
+// Customer pages
 const CustomersList = lazy(() => import('./pages/customers/CustomersList'));
 const CustomerCreate = lazy(() => import('./pages/customers/CustomerCreate'));
 const CustomerDetail = lazy(() => import('./pages/customers/CustomerDetail'));
+
+// Vehicle pages
 const VehiclesList = lazy(() => import('./pages/vehicles/VehiclesList'));
 const VehicleDetail = lazy(() => import('./pages/vehicles/VehicleDetail'));
+
+// Repair pages
 const RepairsList = lazy(() => import('./pages/repairs/RepairsList'));
 const RepairDetail = lazy(() => import('./pages/repairs/RepairDetail'));
+const RepairPhotosList = lazy(() => import('./pages/repairs/photos/RepairPhotosList'));
+const RepairPhotoCapture = lazy(() => import('./pages/repairs/photos/RepairPhotoCapture'));
+
+// Error pages
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Loading fallback
@@ -60,18 +70,25 @@ const AppRoutes = () => {
           }
         >
           <Route index element={<Dashboard />} />
+          
           <Route path="customers">
             <Route index element={<CustomersList />} />
             <Route path="new" element={<CustomerCreate />} />
             <Route path=":id" element={<CustomerDetail />} />
           </Route>
+          
           <Route path="vehicles">
             <Route index element={<VehiclesList />} />
             <Route path=":id" element={<VehicleDetail />} />
           </Route>
+          
           <Route path="repairs">
             <Route index element={<RepairsList />} />
             <Route path=":id" element={<RepairDetail />} />
+            <Route path=":id/photos">
+              <Route index element={<RepairPhotosList />} />
+              <Route path="new" element={<RepairPhotoCapture />} />
+            </Route>
           </Route>
         </Route>
         

@@ -16,7 +16,9 @@
     "confirm": "Confirm",
     "back": "Back",
     "backToHome": "Back to Home",
-    "comingSoon": "Coming Soon"
+    "comingSoon": "Coming Soon",
+    "close": "Close",
+    "view": "View"
   },
   "auth": {
     "login": "Login",
@@ -71,6 +73,9 @@
   "repairs": {
     "title": "Repairs",
     "newRepair": "New Repair",
+    "id": "ID",
+    "vehicle": "Vehicle",
+    "customer": "Customer",
     "status": "Status",
     "description": "Description",
     "estimatedCost": "Estimated Cost",
@@ -78,7 +83,50 @@
     "assignedTo": "Assigned To",
     "repairDetails": "Repair Details",
     "viewingRepair": "Viewing Repair with ID",
-    "photos": "Repair Photos"
+    "photos": "Repair Photos",
+    "viewPhotos": "View Photos",
+    "addPhoto": "Add New Photo",
+    "actions": "Actions",
+    "repairId": "Repair ID",
+    "statuses": {
+      "registered": "Registered",
+      "in_progress": "In Progress",
+      "waiting_approval": "Waiting Approval",
+      "approved": "Approved",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    }
+  },
+  "media": {
+    "photos": "Photos",
+    "addPhoto": "Add Photo",
+    "addFirstPhoto": "Add First Photo",
+    "capturePhoto": "Capture New Photo",
+    "category": "Category",
+    "description": "Description",
+    "retake": "Retake",
+    "capture": "Capture",
+    "capturedImage": "Captured Image",
+    "cameraAccessError": "Error accessing camera",
+    "cameraTips": "Keep the camera steady and ensure good lighting",
+    "imageTips": "Add detailed description to help identify the image later",
+    "uploadFromGallery": "Upload from Gallery",
+    "saving": "Saving photo...",
+    "noPhotos": "No photos have been added yet",
+    "noPhotosInCategory": "No photos in this category",
+    "viewMode": {
+      "grid": "Grid View",
+      "list": "List View"
+    },
+    "filters": {
+      "all": "All"
+    },
+    "categories": {
+      "pre_repair": "Pre-repair",
+      "during_repair": "During Repair",
+      "post_repair": "Post-repair",
+      "damaged_parts": "Damaged Parts"
+    }
   },
   "errors": {
     "pageNotFound": "Page Not Found",
