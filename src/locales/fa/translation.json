@@ -14,28 +14,44 @@
     "error": "خطا رخ داده است",
     "success": "عملیات با موفقیت انجام شد",
     "confirm": "تایید",
-    "back": "بازگشت"
+    "back": "بازگشت",
+    "backToHome": "بازگشت به صفحه اصلی",
+    "comingSoon": "به زودی"
   },
   "auth": {
     "login": "ورود",
     "logout": "خروج",
     "username": "نام کاربری",
-    "password": "رمز عبور"
+    "password": "رمز عبور",
+    "forgotPassword": "فراموشی رمز عبور",
+    "changePassword": "تغییر رمز عبور"
   },
-  "repairs": {
-    "title": "تعمیرات",
-    "newRepair": "تعمیر جدید",
-    "status": "وضعیت",
-    "description": "توضیحات",
-    "estimatedCost": "هزینه تخمینی",
-    "assignedTo": "اختصاص یافته به"
+  "nav": {
+    "dashboard": "داشبورد",
+    "customers": "مشتریان",
+    "vehicles": "خودروها",
+    "repairs": "تعمیرات",
+    "settings": "تنظیمات"
+  },
+  "dashboard": {
+    "title": "داشبورد",
+    "activeRepairs": "تعمیرات فعال",
+    "completedToday": "تکمیل شده امروز",
+    "pendingApprovals": "در انتظار تایید",
+    "totalCustomers": "کل مشتریان",
+    "recentActivities": "فعالیت‌های اخیر",
+    "comingSoon": "به زودی اطلاعات داشبورد نمایش داده خواهد شد"
   },
   "customers": {
     "title": "مشتریان",
     "newCustomer": "مشتری جدید",
     "name": "نام",
     "phone": "تلفن",
-    "email": "ایمیل"
+    "email": "ایمیل",
+    "address": "آدرس",
+    "customerDetails": "مشخصات مشتری",
+    "viewingCustomer": "مشاهده مشتری با شناسه",
+    "vehicles": "خودروهای مشتری"
   },
   "vehicles": {
     "title": "خودروها",
@@ -44,14 +60,27 @@
     "model": "مدل",
     "year": "سال",
     "licensePlate": "پلاک",
-    "vin": "شماره شاسی"
+    "vin": "شماره شاسی",
+    "color": "رنگ",
+    "vehicleDetails": "مشخصات خودرو",
+    "viewingVehicle": "مشاهده خودرو با شناسه",
+    "owner": "مالک"
   },
-  "approvals": {
-    "title": "تاییدیه‌ها",
-    "signature": "امضاء دیجیتال",
-    "voice": "ضبط صدا",
-    "pleaseSign": "لطفا امضاء کنید",
-    "pleaseSpeak": "لطفا تایید خود را به صورت صوتی ضبط کنید",
-    "confirmApproval": "تایید"
+  "repairs": {
+    "title": "تعمیرات",
+    "newRepair": "تعمیر جدید",
+    "status": "وضعیت",
+    "description": "توضیحات",
+    "estimatedCost": "هزینه تخمینی",
+    "actualCost": "هزینه واقعی",
+    "assignedTo": "اختصاص یافته به",
+    "repairDetails": "جزئیات تعمیر",
+    "viewingRepair": "مشاهده تعمیر با شناسه",
+    "photos": "تصاویر تعمیر"
+  },
+  "errors": {
+    "pageNotFound": "صفحه مورد نظر یافت نشد",
+    "serverError": "خطای سرور",
+    "networkError": "خطای اتصال به شبکه"
   }
 }

@@ -14,28 +14,44 @@
     "error": "An error occurred",
     "success": "Operation completed successfully",
     "confirm": "Confirm",
-    "back": "Back"
+    "back": "Back",
+    "backToHome": "Back to Home",
+    "comingSoon": "Coming Soon"
   },
   "auth": {
     "login": "Login",
     "logout": "Logout",
     "username": "Username",
-    "password": "Password"
+    "password": "Password",
+    "forgotPassword": "Forgot Password",
+    "changePassword": "Change Password"
   },
-  "repairs": {
-    "title": "Repairs",
-    "newRepair": "New Repair",
-    "status": "Status",
-    "description": "Description",
-    "estimatedCost": "Estimated Cost",
-    "assignedTo": "Assigned To"
+  "nav": {
+    "dashboard": "Dashboard",
+    "customers": "Customers",
+    "vehicles": "Vehicles",
+    "repairs": "Repairs",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "activeRepairs": "Active Repairs",
+    "completedToday": "Completed Today",
+    "pendingApprovals": "Pending Approvals",
+    "totalCustomers": "Total Customers",
+    "recentActivities": "Recent Activities",
+    "comingSoon": "Dashboard data will be shown here soon"
   },
   "customers": {
     "title": "Customers",
     "newCustomer": "New Customer",
     "name": "Name",
     "phone": "Phone",
-    "email": "Email"
+    "email": "Email",
+    "address": "Address",
+    "customerDetails": "Customer Details",
+    "viewingCustomer": "Viewing Customer with ID",
+    "vehicles": "Customer's Vehicles"
   },
   "vehicles": {
     "title": "Vehicles",
@@ -44,14 +60,27 @@
     "model": "Model",
     "year": "Year",
     "licensePlate": "License Plate",
-    "vin": "VIN"
+    "vin": "VIN",
+    "color": "Color",
+    "vehicleDetails": "Vehicle Details",
+    "viewingVehicle": "Viewing Vehicle with ID",
+    "owner": "Owner"
   },
-  "approvals": {
-    "title": "Approvals",
-    "signature": "Digital Signature",
-    "voice": "Voice Recording",
-    "pleaseSign": "Please sign here",
-    "pleaseSpeak": "Please record your verbal approval",
-    "confirmApproval": "Confirm Approval"
+  "repairs": {
+    "title": "Repairs",
+    "newRepair": "New Repair",
+    "status": "Status",
+    "description": "Description",
+    "estimatedCost": "Estimated Cost",
+    "actualCost": "Actual Cost",
+    "assignedTo": "Assigned To",
+    "repairDetails": "Repair Details",
+    "viewingRepair": "Viewing Repair with ID",
+    "photos": "Repair Photos"
+  },
+  "errors": {
+    "pageNotFound": "Page Not Found",
+    "serverError": "Server Error",
+    "networkError": "Network Error"
   }
 }

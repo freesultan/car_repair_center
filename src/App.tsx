@@ -1,61 +1,45 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ThemeProvider, CssBaseline, Button, Container, Box, Typography, Paper } from '@mui/material';
+import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { ThemeProvider, CssBaseline } from '@mui/material';
 import { CacheProvider } from '@emotion/react';
-import { lightTheme, cacheRtl, cacheLtr } from './theme';
+import { store, useAppSelector } from './store';
+import { lightTheme, darkTheme, cacheRtl, cacheLtr } from './theme';
+import AppRoutes from './routes';
+import './i18n';
 import './styles/fonts.css';
 
-function App() {
-  const [count, setCount] = useState(0);
-  const { t, i18n } = useTranslation();
-  const isRtl = i18n.language === 'fa';
+// App wrapper with providers
+const AppWrapper = () => {
+  return (
+    <Provider store={store}>
+      <Router>
+        <ThemedApp />
+      </Router>
+    </Provider>
+  );
+};
+
+// Component with theme based on Redux store
+const ThemedApp = () => {
+  const { theme } = useAppSelector((state) => state.ui);
+  const isRtl = theme.direction === 'rtl';
+  const currentTheme = theme.mode === 'light' ? lightTheme : darkTheme;
   
-  const toggleLanguage = () => {
-    i18n.changeLanguage(i18n.language === 'fa' ? 'en' : 'fa');
-  };
+  // Update document direction when language changes
+  useEffect(() => {
+    document.dir = isRtl ? 'rtl' : 'ltr';
+    document.documentElement.lang = isRtl ? 'fa' : 'en';
+  }, [isRtl]);
 
   return (
     <CacheProvider value={isRtl ? cacheRtl : cacheLtr}>
-      <ThemeProvider theme={lightTheme}>
+      <ThemeProvider theme={{...currentTheme, direction: theme.direction}}>
         <CssBaseline />
-        <Container maxWidth="lg" sx={{ py: 4 }}>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Typography variant="h3" component="h1" gutterBottom>
-              {t('app.title')}
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              {t('app.welcome')}
-            </Typography>
-          </Box>
-          
-          <Paper elevation={3} sx={{ p: 4, textAlign: 'center', borderRadius: 2 }}>
-            <Box sx={{ mb: 3 }}>
-              <Button 
-                variant="contained" 
-                color="primary"
-                size="large"
-                onClick={() => setCount((count) => count + 1)}
-                sx={{ mb: 2 }}
-              >
-                {count === 0 ? t('common.create') : `${t('common.create')} ${count}`}
-              </Button>
-              
-              <Typography variant="body1" sx={{ my: 2 }}>
-                {t('repairs.description')}
-              </Typography>
-            </Box>
-            
-            <Button 
-              variant="outlined"
-              onClick={toggleLanguage}
-            >
-              {i18n.language === 'fa' ? 'English' : 'فارسی'}
-            </Button>
-          </Paper>
-        </Container>
+        <AppRoutes />
       </ThemeProvider>
     </CacheProvider>
   );
-}
+};
 
-export default App;
+export default AppWrapper;
