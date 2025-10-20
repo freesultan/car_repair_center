@@ -34,7 +34,7 @@
 /* Vazir Font - Free alternative */
 @font-face {
   font-family: 'Vazir';
-  src: url('/fonts/vazir/Vazir.woff2') format('woff2');
+  src: url('/fonts/vazir/Vazirmatn.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -42,7 +42,7 @@
 
 @font-face {
   font-family: 'Vazir';
-  src: url('/fonts/vazir/Vazir-Bold.woff2') format('woff2');
+  src: url('/fonts/vazir/Vazirmatn-Bold.woff2') format('woff2');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -50,7 +50,7 @@
 
 @font-face {
   font-family: 'Vazir';
-  src: url('/fonts/vazir/Vazir-Light.woff2') format('woff2');
+  src: url('/fonts/vazir/Vazirmatn-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -58,7 +58,7 @@
 
 @font-face {
   font-family: 'Vazir';
-  src: url('/fonts/vazir/Vazir-Medium.woff2') format('woff2');
+  src: url('/fonts/vazir/Vazirmatn-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
