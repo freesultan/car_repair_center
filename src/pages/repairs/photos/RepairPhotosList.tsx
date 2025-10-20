@@ -12,22 +12,14 @@ import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { PhotoGallery } from '../../../components/media';
 
-// Using placeholder.com for image placeholders
+// Function to get picsum.photos URLs with seed for consistent images
 const getPlaceholderImage = (index: number, category: string) => {
-  // Colors for different categories
-  const colors = {
-    pre_repair: '1976d2', // blue
-    during_repair: 'ff9800', // orange
-    post_repair: '4caf50', // green
-    damaged_parts: 'f44336', // red
-  };
-  
-  const color = colors[category as keyof typeof colors] || colors.pre_repair;
-  // Using placeholder.com with category as text
-  return `https://via.placeholder.com/400x300/${color}/ffffff?text=${category.replace('_', '+')}`;
+  // Using picsum.photos with seed parameter for consistent images per ID
+  // The seed parameter ensures the same image is returned for the same ID
+  return `https://picsum.photos/seed/${category}_${index}/800/600`;
 };
 
-// Mock data using placeholder.com images
+// Mock data using picsum.photos
 const mockPhotos = [
   {
     id: 1,
