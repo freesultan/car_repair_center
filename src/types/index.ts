@@ -1,12 +1,32 @@
-// Core entity types
+// Common types
+export interface PaginatedResponse<T> {
+  data: T[];
+  meta: {
+    page: number;
+    limit: number;
+    totalCount: number;
+    totalPages: number;
+  };
+}
+
+// User related types
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  SERVICE_ADVISOR = 'SERVICE_ADVISOR',
+  TECHNICIAN = 'TECHNICIAN'
+}
+
 export interface User {
   id: number;
   username: string;
   fullName: string;
-  role: 'admin' | 'service_advisor' | 'technician';
+  role: UserRole;
   active: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
+// Customer related types
 export interface Customer {
   id: number;
   name: string;
@@ -17,6 +37,7 @@ export interface Customer {
   updatedAt: string;
 }
 
+// Vehicle related types
 export interface Vehicle {
   id: number;
   customerId: number;
@@ -28,76 +49,61 @@ export interface Vehicle {
   color?: string;
   createdAt: string;
   updatedAt: string;
+  customer?: Customer;
+}
+
+// Repair related types
+export enum RepairStatus {
+  REGISTERED = 'REGISTERED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  WAITING_APPROVAL = 'WAITING_APPROVAL',
+  APPROVED = 'APPROVED',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED'
 }
 
 export interface Repair {
   id: number;
   vehicleId: number;
   description: string;
-  status: 'registered' | 'in_progress' | 'waiting_approval' | 'approved' | 'completed' | 'cancelled';
+  status: RepairStatus;
   estimatedCost?: number;
   actualCost?: number;
   technicianId?: number;
   createdAt: string;
   updatedAt: string;
   completedAt?: string;
+  vehicle?: Vehicle;
+  technician?: Technician;
+  photos?: Photo[];
+}
+
+// Technician related types
+export interface Technician {
+  id: number;
+  userId: number;
+  specialization?: string;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+  user?: User;
+}
+
+// Photo related types
+export enum PhotoCategory {
+  PRE_REPAIR = 'PRE_REPAIR',
+  DURING_REPAIR = 'DURING_REPAIR',
+  POST_REPAIR = 'POST_REPAIR',
+  DAMAGED_PARTS = 'DAMAGED_PARTS'
 }
 
 export interface Photo {
   id: number;
   repairId: number;
   filePath: string;
-  category: 'pre_repair' | 'during_repair' | 'post_repair' | 'damaged_parts';
+  category: PhotoCategory;
   description?: string;
   createdAt: string;
-  createdBy: number;
-}
-
-export interface Approval {
-  id: number;
-  repairId: number;
-  type: 'signature' | 'voice' | 'text';
-  contentPath: string;
-  timestamp: string;
-  createdBy: number;
-  createdAt: string;
-}
-
-// UI related types
-export interface Notification {
-  id: string;
-  message: string;
-  type: 'info' | 'success' | 'warning' | 'error';
-  autoHide?: boolean;
-  duration?: number;
-}
-
-export interface ThemeSettings {
-  mode: 'light' | 'dark';
-  direction: 'rtl' | 'ltr';
-}
-
-// API related types
-export interface ApiResponse<T> {
-  data?: T;
-  error?: string;
-  message?: string;
-  status: number;
-}
-
-export interface PaginatedResponse<T> {
-  data: T[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
-
-export interface QueryParams {
-  page?: number;
-  limit?: number;
-  search?: string;
-  sortBy?: string;
-  sortOrder?: 'asc' | 'desc';
-  [key: string]: any;
+  userId: number;
+  thumbnailUrl?: string; // For frontend use
 }

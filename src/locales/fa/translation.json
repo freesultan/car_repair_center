@@ -18,7 +18,11 @@
     "backToHome": "بازگشت به صفحه اصلی",
     "comingSoon": "به زودی",
     "close": "بستن",
-    "view": "مشاهده"
+    "view": "مشاهده",
+    "actions": "عملیات",
+    "rowsPerPage": "تعداد در هر صفحه",
+    "of": "از",
+    "moreThan": "بیش از"
   },
   "auth": {
     "login": "ورود",
@@ -26,7 +30,8 @@
     "username": "نام کاربری",
     "password": "رمز عبور",
     "forgotPassword": "فراموشی رمز عبور",
-    "changePassword": "تغییر رمز عبور"
+    "changePassword": "تغییر رمز عبور",
+    "loginFailed": "نام کاربری یا رمز عبور اشتباه است"
   },
   "user": {
     "profile": "پروفایل",
@@ -60,7 +65,14 @@
     "customerDetails": "مشخصات مشتری",
     "viewingCustomer": "مشاهده مشتری با شناسه",
     "vehicles": "خودروهای مشتری",
-    "clickAddToCreate": "روی دکمه «مشتری جدید» کلیک کنید تا یک مشتری جدید ایجاد کنید"
+    "clickAddToCreate": "روی دکمه «مشتری جدید» کلیک کنید تا یک مشتری جدید ایجاد کنید",
+    "noCustomersFound": "هیچ مشتری یافت نشد",
+    "createSuccess": "مشتری با موفقیت ایجاد شد",
+    "updateSuccess": "مشتری با موفقیت به‌روزرسانی شد",
+    "deleteSuccess": "مشتری با موفقیت حذف شد",
+    "personalInfo": "اطلاعات شخصی",
+    "notFound": "مشتری مورد نظر یافت نشد",
+    "noVehicles": "این مشتری هیچ خودرویی ثبت نشده دارد"
   },
   "vehicles": {
     "title": "خودروها",
@@ -119,6 +131,7 @@
     "saving": "در حال ذخیره تصویر...",
     "noPhotos": "هیچ تصویری ثبت نشده است",
     "noPhotosInCategory": "هیچ تصویری در این دسته‌بندی وجود ندارد",
+    "imageNotAvailable": "تصویر در دسترس نیست",
     "viewMode": {
       "grid": "نمای شبکه‌ای",
       "list": "نمای لیستی"
@@ -136,7 +149,8 @@
   "errors": {
     "pageNotFound": "صفحه مورد نظر یافت نشد",
     "serverError": "خطای سرور",
-    "networkError": "خطای اتصال به شبکه"
+    "networkError": "خطای اتصال به شبکه",
+    "fetchingCustomers": "خطا در دریافت اطلاعات مشتریان"
   },
   "validation": {
     "required": "این فیلد الزامی است",

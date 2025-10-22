@@ -18,7 +18,11 @@
     "backToHome": "Back to Home",
     "comingSoon": "Coming Soon",
     "close": "Close",
-    "view": "View"
+    "view": "View",
+    "actions": "Actions",
+    "rowsPerPage": "Rows per page",
+    "of": "of",
+    "moreThan": "more than"
   },
   "auth": {
     "login": "Login",
@@ -26,7 +30,8 @@
     "username": "Username",
     "password": "Password",
     "forgotPassword": "Forgot Password",
-    "changePassword": "Change Password"
+    "changePassword": "Change Password",
+    "loginFailed": "Invalid username or password"
   },
   "user": {
     "profile": "Profile",
@@ -60,7 +65,14 @@
     "customerDetails": "Customer Details",
     "viewingCustomer": "Viewing Customer with ID",
     "vehicles": "Customer's Vehicles",
-    "clickAddToCreate": "Click the 'New Customer' button to create a new customer"
+    "clickAddToCreate": "Click the 'New Customer' button to create a new customer",
+    "noCustomersFound": "No customers found",
+    "createSuccess": "Customer created successfully",
+    "updateSuccess": "Customer updated successfully",
+    "deleteSuccess": "Customer deleted successfully",
+    "personalInfo": "Personal Information",
+    "notFound": "Customer not found",
+    "noVehicles": "This customer has no registered vehicles"
   },
   "vehicles": {
     "title": "Vehicles",
@@ -119,6 +131,7 @@
     "saving": "Saving photo...",
     "noPhotos": "No photos have been added yet",
     "noPhotosInCategory": "No photos in this category",
+    "imageNotAvailable": "Image not available",
     "viewMode": {
       "grid": "Grid View",
       "list": "List View"
@@ -136,7 +149,8 @@
   "errors": {
     "pageNotFound": "Page Not Found",
     "serverError": "Server Error",
-    "networkError": "Network Error"
+    "networkError": "Network Error",
+    "fetchingCustomers": "Error fetching customers"
   },
   "validation": {
     "required": "This field is required",

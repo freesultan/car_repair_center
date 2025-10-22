@@ -4,7 +4,8 @@ I use `Nodemon`: For automatic server restarting during development
 I use `material UI and emotion`     
 I use `prisma` For database visualization and management     
 Docker Compose: For running PostgreSQL and pgAdmin    
-I use `Jwt tokens`    
+I use `Jwt tokens`  
+I use `docker compose` for backend postgres and pgadmin    
 
 
 # postgress
