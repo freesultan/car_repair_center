@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
 interface JwtPayload {
   userId: number;
@@ -29,9 +29,22 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
   }
 
   const token = parts[1];
+  const jwtSecret = process.env.JWT_SECRET;
+
+  if (!jwtSecret) {
+    return res.status(500).json({ message: 'JWT_SECRET is not defined in server configuration' });
+  }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload;
+    // Parse the JWT token without relying on complex type checks
+    const decoded = JSON.parse(
+      Buffer.from(token.split('.')[1], 'base64').toString()
+    ) as JwtPayload;
+    
+    // Verify the token is valid
+    jwt.verify(token, jwtSecret);
+    
+    // If verification passes, set the user
     req.user = decoded;
     return next();
   } catch (error) {

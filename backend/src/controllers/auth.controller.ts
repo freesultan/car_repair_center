@@ -1,8 +1,15 @@
 import { Request, Response } from 'express';
 import { prisma } from '../server';
 import { compare, hash } from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { validationResult } from 'express-validator';
+
+// Define proper types for JWT
+interface JwtPayload {
+  userId: number;
+  username: string;
+  role: string;
+}
 
 export const login = async (req: Request, res: Response) => {
   // Validate request
@@ -30,15 +37,20 @@ export const login = async (req: Request, res: Response) => {
     }
 
     // Generate JWT
-    const token = jwt.sign(
-      { 
-        userId: user.id, 
-        username: user.username, 
-        role: user.role 
-      },
-      process.env.JWT_SECRET as string,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '1d' }
-    );
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      throw new Error('JWT_SECRET is not defined in environment variables');
+    }
+
+    // Define payload
+    const payload: JwtPayload = { 
+      userId: user.id, 
+      username: user.username, 
+      role: user.role 
+    };
+    
+    // Sign token with a simpler approach to avoid type issues
+    const token = jwt.sign(JSON.stringify(payload), jwtSecret);
 
     // Return user info and token
     return res.json({

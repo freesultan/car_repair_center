@@ -32,14 +32,14 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/customers', customerRoutes);
-app.use('/api/vehicles', vehicleRoutes);
-app.use('/api/repairs', repairRoutes);
-app.use('/api/photos', photoRoutes);
-app.use('/api/approvals', approvalRoutes);
-app.use('/api/technicians', technicianRoutes);
+app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/customers', customerRoutes);
+app.use('/api/v1/vehicles', vehicleRoutes);
+app.use('/api/v1/repairs', repairRoutes);
+app.use('/api/v1/photos', photoRoutes);
+app.use('/api/v1/approvals', approvalRoutes);
+app.use('/api/v1/technicians', technicianRoutes);
 
 // Health check route
 app.get('/health', (req, res) => {
@@ -62,7 +62,7 @@ app.listen(port, () => {
 
 // Handle shutdown
 process.on('SIGINT', async () => {
-  await prisma.();
+  await prisma.$disconnect(); // Fixed: Changed from await prisma.() to await prisma.$disconnect()
   console.log('Server shut down');
   process.exit(0);
 });

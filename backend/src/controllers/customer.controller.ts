@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { prisma } from '../server';
 import { validationResult } from 'express-validator';
+import { Prisma } from '@prisma/client';
 
 // Get all customers with pagination
 export const getAllCustomers = async (req: Request, res: Response) => {
@@ -10,15 +11,19 @@ export const getAllCustomers = async (req: Request, res: Response) => {
     const skip = (page - 1) * limit;
 
     const search = req.query.search as string;
-    const whereClause = search
-      ? {
-          OR: [
-            { name: { contains: search, mode: 'insensitive' } },
-            { phone: { contains: search, mode: 'insensitive' } },
-            { email: { contains: search, mode: 'insensitive' } },
-          ],
-        }
-      : {};
+    
+    // Define whereClause with proper Prisma types
+    let whereClause: Prisma.CustomerWhereInput = {};
+    
+    if (search) {
+      whereClause = {
+        OR: [
+          { name: { contains: search, mode: Prisma.QueryMode.insensitive } },
+          { phone: { contains: search, mode: Prisma.QueryMode.insensitive } },
+          { email: { contains: search, mode: Prisma.QueryMode.insensitive } },
+        ],
+      };
+    }
 
     const [customers, totalCount] = await Promise.all([
       prisma.customer.findMany({
