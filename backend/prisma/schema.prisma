@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model
+model User {
+  id           Int           @id @default(autoincrement())
+  username     String        @unique
+  passwordHash String
+  fullName     String
+  role         UserRole
+  active       Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  technician   Technician?
+  photos       Photo[]
+  approvals    Approval[]
+}
+
+enum UserRole {
+  ADMIN
+  SERVICE_ADVISOR
+  TECHNICIAN
+}
+
+// Customer model
+model Customer {
+  id        Int       @id @default(autoincrement())
+  name      String
+  phone     String    @unique
+  email     String?
+  address   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  vehicles  Vehicle[]
+}
+
+// Vehicle model
+model Vehicle {
+  id           Int       @id @default(autoincrement())
+  customer     Customer  @relation(fields: [customerId], references: [id])
+  customerId   Int
+  make         String
+  model        String
+  year         Int
+  licensePlate String    @unique
+  vin          String?
+  color        String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  repairs      Repair[]
+}
+
+// Repair model
+model Repair {
+  id            Int           @id @default(autoincrement())
+  vehicle       Vehicle       @relation(fields: [vehicleId], references: [id])
+  vehicleId     Int
+  description   String
+  status        RepairStatus
+  estimatedCost Float?
+  actualCost    Float?
+  technician    Technician?   @relation(fields: [technicianId], references: [id])
+  technicianId  Int?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  completedAt   DateTime?
+  photos        Photo[]
+  approvals     Approval[]
+}
+
+enum RepairStatus {
+  REGISTERED
+  IN_PROGRESS
+  WAITING_APPROVAL
+  APPROVED
+  COMPLETED
+  CANCELLED
+}
+
+// Technician model
+model Technician {
+  id             Int      @id @default(autoincrement())
+  user           User     @relation(fields: [userId], references: [id])
+  userId         Int      @unique
+  specialization String?
+  active         Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  repairs        Repair[]
+}
+
+// Photo model
+model Photo {
+  id          Int          @id @default(autoincrement())
+  repair      Repair       @relation(fields: [repairId], references: [id])
+  repairId    Int
+  filePath    String
+  category    PhotoCategory
+  description String?
+  createdAt   DateTime     @default(now())
+  createdBy   User         @relation(fields: [userId], references: [id])
+  userId      Int
+}
+
+enum PhotoCategory {
+  PRE_REPAIR
+  DURING_REPAIR
+  POST_REPAIR
+  DAMAGED_PARTS
+}
+
+// Approval model
+model Approval {
+  id          Int           @id @default(autoincrement())
+  repair      Repair        @relation(fields: [repairId], references: [id])
+  repairId    Int
+  type        ApprovalType
+  contentPath String
+  timestamp   DateTime      @default(now())
+  createdBy   User          @relation(fields: [userId], references: [id])
+  userId      Int
+  createdAt   DateTime      @default(now())
+}
+
+enum ApprovalType {
+  SIGNATURE
+  VOICE
+  TEXT
+}
