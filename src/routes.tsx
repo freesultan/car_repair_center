@@ -13,6 +13,7 @@ const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'));
 // Customer pages
 const CustomersList = lazy(() => import('./pages/customers/CustomersList'));
 const CustomerCreate = lazy(() => import('./pages/customers/CustomerCreate'));
+const CustomerEdit = lazy(() => import('./pages/customers/CustomerEdit'));
 const CustomerDetail = lazy(() => import('./pages/customers/CustomerDetail'));
 
 // Vehicle pages
@@ -47,8 +48,6 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   const location = useLocation();
   
-  console.log('ProtectedRoute check - isAuthenticated:', isAuthenticated, 'path:', location.pathname);
-  
   if (!isAuthenticated) {
     // Redirect to login but remember where the user was trying to go
     return <Navigate to="/login" state={{ from: location }} replace />;
@@ -60,11 +59,6 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 const AppRoutes = () => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   const location = useLocation();
-  
-  // Log authentication state on route changes for debugging
-  useEffect(() => {
-    console.log('Route changed - isAuthenticated:', isAuthenticated, 'path:', location.pathname);
-  }, [location.pathname, isAuthenticated]);
   
   return (
     <Suspense fallback={<LoadingFallback />}>
@@ -89,6 +83,7 @@ const AppRoutes = () => {
             <Route index element={<CustomersList />} />
             <Route path="new" element={<CustomerCreate />} />
             <Route path=":id" element={<CustomerDetail />} />
+            <Route path=":id/edit" element={<CustomerEdit />} />
           </Route>
           
           <Route path="vehicles">

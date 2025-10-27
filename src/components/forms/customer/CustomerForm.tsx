@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Paper, Typography, Grid } from '@mui/material';
-import { 
-  FormTextField, 
-  FormPhoneInput, 
-  FormSubmitButton 
-} from '..';
+import { Box, Paper, Typography, Grid, Alert, CircularProgress } from '@mui/material';
+import { FormTextField, FormPhoneInput } from '../FormFields';
+import FormSubmitButton from '../FormSubmitButton';
+import { Customer } from '../../../types';
+import { customersApi } from '../../../services/api';
 
 interface CustomerFormProps {
-  onSubmit: (data: CustomerFormData) => void;
-  initialData?: CustomerFormData;
+  onSubmit: (data: Customer) => void;
+  initialData?: Customer;
   loading?: boolean;
+  error?: string | null;
 }
 
 export interface CustomerFormData {
@@ -24,6 +24,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   onSubmit,
   initialData,
   loading = false,
+  error = null,
 }) => {
   const { t } = useTranslation();
   
@@ -34,19 +35,42 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     address: initialData?.address || '',
   });
   
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [apiError, setApiError] = useState<string | null>(error);
+  
+  // Update form if initialData changes
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        name: initialData.name,
+        phone: initialData.phone,
+        email: initialData.email || '',
+        address: initialData.address || '',
+      });
+    }
+  }, [initialData]);
+  
+  // Update API error if prop changes
+  useEffect(() => {
+    setApiError(error);
+  }, [error]);
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     
-    // Clear error when field is edited
-    if (errors[name]) {
-      setErrors((prev) => {
+    // Clear validation error when field is edited
+    if (validationErrors[name]) {
+      setValidationErrors((prev) => {
         const newErrors = { ...prev };
         delete newErrors[name];
         return newErrors;
       });
+    }
+    
+    // Clear API error when any field is edited
+    if (apiError) {
+      setApiError(null);
     }
   };
   
@@ -70,15 +94,31 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       newErrors.email = t('validation.invalidEmail');
     }
     
-    setErrors(newErrors);
+    setValidationErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (validateForm()) {
-      onSubmit(formData);
+    if (!validateForm()) {
+      return;
+    }
+    
+    try {
+      let result: Customer;
+      
+      if (initialData?.id) {
+        // Update existing customer
+        result = await customersApi.updateCustomer(initialData.id, formData);
+      } else {
+        // Create new customer
+        result = await customersApi.createCustomer(formData);
+      }
+      
+      onSubmit(result);
+    } catch (error: any) {
+      setApiError(error.response?.data?.message || t('errors.serverError'));
     }
   };
   
@@ -88,53 +128,63 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         {initialData ? t('customers.editCustomer') : t('customers.newCustomer')}
       </Typography>
       
+      {apiError && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {apiError}
+        </Alert>
+      )}
+      
       <Box component="form" onSubmit={handleSubmit} noValidate>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <FormTextField
               name="name"
-              label="customers.name"
+              label={t('customers.name')}
               value={formData.name}
               onChange={handleChange}
-              error={!!errors.name}
-              helperText={errors.name}
+              error={!!validationErrors.name}
+              helperText={validationErrors.name}
               required
+              disabled={loading}
             />
           </Grid>
           
           <Grid item xs={12}>
             <FormPhoneInput
               name="phone"
-              label="customers.phone"
+              label={t('customers.phone')}
               value={formData.phone}
               onChange={handleChange}
-              error={!!errors.phone}
-              helperText={errors.phone}
+              error={!!validationErrors.phone}
+              helperText={validationErrors.phone}
               required
               placeholder="09123456789"
+              disabled={loading}
             />
           </Grid>
           
           <Grid item xs={12}>
             <FormTextField
               name="email"
-              label="customers.email"
+              label={t('customers.email')}
               value={formData.email}
               onChange={handleChange}
-              error={!!errors.email}
-              helperText={errors.email}
+              error={!!validationErrors.email}
+              helperText={validationErrors.email}
               type="email"
+              disabled={loading}
             />
           </Grid>
           
           <Grid item xs={12}>
             <FormTextField
               name="address"
-              label="customers.address"
+              label={t('customers.address')}
               value={formData.address}
               onChange={handleChange}
               multiline
               rows={3}
+              disabled={loading}
             />
           </Grid>
           
