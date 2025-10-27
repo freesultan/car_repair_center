@@ -97,7 +97,9 @@
     "searchPlaceholder": "جستجو در خودروها...",
     "createSuccess": "خودرو با موفقیت ایجاد شد",
     "updateSuccess": "خودرو با موفقیت به‌روزرسانی شد",
-    "deleteSuccess": "خودرو با موفقیت حذف شد"
+    "deleteSuccess": "خودرو با موفقیت حذف شد",
+    "addVehicleDisabledTooltip": "برای افزودن خودرو از صفحه مشتریان اقدام کنید"
+
   },
   "repairs": {
     "title": "تعمیرات",

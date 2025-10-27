@@ -22,6 +22,7 @@ import {
   Card,
   CardContent
 } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import {
   Search as SearchIcon,
   Visibility as VisibilityIcon,
@@ -127,14 +128,20 @@ const VehiclesList = () => {
         <Typography variant="h4" component="h1">
           {t('vehicles.title')}
         </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<AddIcon />}
-          onClick={handleAddVehicle}
-        >
-          {t('vehicles.newVehicle')}
-        </Button>
+        <Tooltip title={t('vehicles.addVehicleDisabledTooltip')} placement="top">
+    {/* span is required because Tooltip doesn't work with disabled elements */}
+    <span>
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<AddIcon />}
+        onClick={handleAddVehicle}
+        disabled
+      >
+        {t('vehicles.newVehicle')}
+      </Button>
+    </span>
+  </Tooltip>
       </Box>
 
       {error && (
