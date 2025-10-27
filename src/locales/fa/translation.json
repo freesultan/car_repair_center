@@ -85,7 +85,16 @@
     "color": "رنگ",
     "vehicleDetails": "مشخصات خودرو",
     "viewingVehicle": "مشاهده خودرو با شناسه",
-    "owner": "مالک"
+    "owner": "مالک",
+    "customer": "مشتری",
+    "customerInfo": "اطلاعات مشتری",
+    "repairHistory": "تاریخچه تعمیرات",
+    "noVehicles": "هیچ خودرویی یافت نشد",
+    "noSearchResults": "نتیجه‌ای برای جستجو یافت نشد",
+    "noRepairs": "هیچ تعمیری ثبت نشده",
+    "noCustomerInfo": "اطلاعات مشتری موجود نیست",
+    "vehicleNotFound": "خودرو یافت نشد",
+    "searchPlaceholder": "جستجو در خودروها..."
   },
   "repairs": {
     "title": "تعمیرات",

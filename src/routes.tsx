@@ -19,6 +19,7 @@ const CustomerDetail = lazy(() => import('./pages/customers/CustomerDetail'));
 // Vehicle pages
 const VehiclesList = lazy(() => import('./pages/vehicles/VehiclesList'));
 const VehicleDetail = lazy(() => import('./pages/vehicles/VehicleDetail'));
+const NewVehicle = lazy(() => import('./pages/vehicles/NewVehicle')); // New "New Vehicle" page
 
 // Repair pages
 const RepairsList = lazy(() => import('./pages/repairs/RepairsList'));
@@ -88,6 +89,7 @@ const AppRoutes = () => {
           
           <Route path="vehicles">
             <Route index element={<VehiclesList />} />
+            <Route path="new" element={<NewVehicle />} /> {/* Add New Vehicle route */}
             <Route path=":id" element={<VehicleDetail />} />
           </Route>
           
