@@ -39,7 +39,7 @@ router.post('/',
     body('customerId').isInt().withMessage('Customer ID is required and must be an integer'),
     body('make').notEmpty().withMessage('Make is required'),
     body('model').notEmpty().withMessage('Model is required'),
-    body('year').isInt({ min: 1300, max: 1450 }).withMessage('Year must be between 1300 and 1450 (Persian calendar)'),
+    body('year').isInt({ min: 1300, max: 2050 }).withMessage('Year must be between 1300 and 2050 '),
     body('licensePlate').notEmpty().withMessage('License plate is required')
       .matches(/^[0-9]{2}[آ-ی]{4,6}[0-9]{2,3}[آ-ی]{1,2}[0-9]{2}$|^[0-9]{2}[آ-ی]{4,6}[0-9]{3}[آ-ی]{1}[0-9]{2}$/)
       .withMessage('License plate format is invalid'),

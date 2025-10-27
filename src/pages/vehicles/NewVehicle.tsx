@@ -24,8 +24,9 @@ const NewVehicle = () => {
     try {
       setLoading(true);
       setError(null);
+      console.log('Sending payload:', data); // Log the payload
       await vehiclesApi.createVehicle(data);
-      
+  
       // Redirect to vehicles list or back to customer detail
       if (customerId) {
         navigate(`/customers/${customerId}`);
@@ -33,7 +34,7 @@ const NewVehicle = () => {
         navigate('/vehicles');
       }
     } catch (err: any) {
-      console.error('Error creating vehicle:', err);
+      console.error('Error creating vehicle:', err.response?.data || err.message);
       setError(err.response?.data?.message || t('common.errorOccurred'));
     } finally {
       setLoading(false);

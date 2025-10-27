@@ -6,8 +6,6 @@ import {
   TextField,
   Button,
   Grid,
-  MenuItem,
-  Paper
 } from '@mui/material';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -30,14 +28,20 @@ export interface VehicleFormData {
 }
 
 const schema = yup.object({
+  customerId: yup
+    .number()
+    .required('vehicles.validation.customerIdRequired')
+    .typeError('vehicles.validation.customerIdInvalid'),
   make: yup.string().required('vehicles.validation.makeRequired'),
   model: yup.string().required('vehicles.validation.modelRequired'),
   year: yup
     .number()
     .required('vehicles.validation.yearRequired')
     .min(1300, 'vehicles.validation.yearMin')
-    .max(new Date().getFullYear() + 1, 'vehicles.validation.yearMax'),
-  licensePlate: yup.string().required('vehicles.validation.licensePlateRequired'),
+    .max(1450, 'vehicles.validation.yearMax'),
+  licensePlate: yup
+    .string()
+    .required('vehicles.validation.licensePlateRequired'),
   vin: yup.string(),
   color: yup.string(),
 }).required();
@@ -57,6 +61,7 @@ const VehicleForm = ({ customerId, onSubmit, onCancel, loading = false }: Vehicl
   });
 
   const onSubmitHandler = (data: VehicleFormData) => {
+    console.log('Form submitted with data:', data); 
     onSubmit(data);
   };
 
