@@ -1,44 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Box,
   Typography,
   Paper,
+  Snackbar,
   Alert,
 } from '@mui/material';
-import VehicleForm, { VehicleFormData } from '../../components/forms/vehicle/VehicleForm';
-import { vehiclesApi } from '../../services/api';
+import VehicleForm from '../../components/forms/vehicle/VehicleForm';
 
 const NewVehicle = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const [error, setError] = React.useState<string | null>(null);
-  const [loading, setLoading] = React.useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // Get customerId from location state if coming from customer detail page
   const customerId = location.state?.customerId;
 
-  const handleSubmit = async (data: VehicleFormData) => {
-    try {
-      setLoading(true);
-      setError(null);
-      console.log('Sending payload:', data); // Log the payload
-      await vehiclesApi.createVehicle(data);
-  
-      // Redirect to vehicles list or back to customer detail
+  const handleSubmit = () => {
+    setShowSuccess(true);
+    setTimeout(() => {
       if (customerId) {
         navigate(`/customers/${customerId}`);
       } else {
         navigate('/vehicles');
       }
-    } catch (err: any) {
-      console.error('Error creating vehicle:', err.response?.data || err.message);
-      setError(err.response?.data?.message || t('common.errorOccurred'));
-    } finally {
-      setLoading(false);
-    }
+    }, 1000);
   };
 
   const handleCancel = () => {
@@ -55,20 +44,23 @@ const NewVehicle = () => {
         {t('vehicles.newVehicle')}
       </Typography>
 
-      {error && (
-        <Alert severity="error" sx={{ mb: 3 }}>
-          {error}
-        </Alert>
-      )}
-
       <Paper sx={{ p: 3 }}>
         <VehicleForm
           customerId={customerId}
           onSubmit={handleSubmit}
           onCancel={handleCancel}
-          loading={loading}
         />
       </Paper>
+
+      <Snackbar
+        open={showSuccess}
+        autoHideDuration={6000}
+        onClose={() => setShowSuccess(false)}
+      >
+        <Alert severity="success" sx={{ width: '100%' }}>
+          {t('vehicles.createSuccess')}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

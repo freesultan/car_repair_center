@@ -1,20 +1,25 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Box,
+  Paper,
+  Typography,
+  Grid,
+  Alert,
+  CircularProgress,
   TextField,
   Button,
-  Grid,
 } from '@mui/material';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { vehiclesApi } from '../../../services/api';
+import { Vehicle } from '../../../types';
 
 interface VehicleFormProps {
+  onSubmit: (vehicle: Vehicle) => void;
+  initialData?: Vehicle;
   customerId?: number;
-  onSubmit: (data: VehicleFormData) => void;
-  onCancel?: () => void;
   loading?: boolean;
+  error?: string | null;
+  onCancel?: () => void;
 }
 
 export interface VehicleFormData {
@@ -27,121 +32,221 @@ export interface VehicleFormData {
   customerId?: number;
 }
 
-const schema = yup.object({
-  customerId: yup
-    .number()
-    .required('vehicles.validation.customerIdRequired')
-    .typeError('vehicles.validation.customerIdInvalid'),
-  make: yup.string().required('vehicles.validation.makeRequired'),
-  model: yup.string().required('vehicles.validation.modelRequired'),
-  year: yup
-    .number()
-    .required('vehicles.validation.yearRequired')
-    .min(1300, 'vehicles.validation.yearMin')
-    .max(1450, 'vehicles.validation.yearMax'),
-  licensePlate: yup
-    .string()
-    .required('vehicles.validation.licensePlateRequired'),
-  vin: yup.string(),
-  color: yup.string(),
-}).required();
-
-const VehicleForm = ({ customerId, onSubmit, onCancel, loading = false }: VehicleFormProps) => {
+const VehicleForm: React.FC<VehicleFormProps> = ({
+  onSubmit,
+  initialData,
+  customerId,
+  loading = false,
+  error = null,
+  onCancel,
+}) => {
   const { t } = useTranslation();
-  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<VehicleFormData>({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      customerId: customerId
-    }
+
+  const [formData, setFormData] = useState<VehicleFormData>({
+    make: initialData?.make || '',
+    model: initialData?.model || '',
+    year: initialData?.year || 1400,
+    licensePlate: initialData?.licensePlate || '',
+    vin: initialData?.vin || '',
+    color: initialData?.color || '',
+    customerId: initialData?.customerId || customerId,
   });
 
-  const onSubmitHandler = (data: VehicleFormData) => {
-    console.log('Form submitted with data:', data); 
-    onSubmit(data);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [apiError, setApiError] = useState<string | null>(error);
+  const [apiLoading, setApiLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        make: initialData.make,
+        model: initialData.model,
+        year: initialData.year,
+        licensePlate: initialData.licensePlate,
+        vin: initialData.vin || '',
+        color: initialData.color || '',
+        customerId: initialData.customerId,
+      });
+    }
+  }, [initialData]);
+
+  useEffect(() => {
+    setApiError(error);
+  }, [error]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === 'year' ? Number(value) : value,
+    }));
+
+    if (validationErrors[name]) {
+      setValidationErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+    if (apiError) {
+      setApiError(null);
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.make.trim()) {
+      newErrors.make = t('vehicles.validation.makeRequired');
+    }
+    if (!formData.model.trim()) {
+      newErrors.model = t('vehicles.validation.modelRequired');
+    }
+    if (!formData.year || formData.year < 1300 || formData.year > 2050) {
+      newErrors.year = t('vehicles.validation.yearRange');
+    }
+    if (!formData.licensePlate.trim()) {
+      newErrors.licensePlate = t('vehicles.validation.licensePlateRequired');
+    }
+    if (!formData.customerId || typeof formData.customerId !== 'number') {
+      newErrors.customerId = t('vehicles.validation.customerIdRequired');
+    }
+
+    setValidationErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setApiLoading(true);
+    setApiError(null);
+
+    try {
+      const vehicle = await vehiclesApi.createVehicle(formData as any);
+      onSubmit(vehicle);
+    } catch (err: any) {
+      setApiError(
+        err?.response?.data?.message ||
+        (err?.response?.data?.errors && Array.isArray(err.response.data.errors)
+          ? err.response.data.errors.map((e: any) => e.msg).join(', ')
+          : t('common.errorOccurred'))
+      );
+    } finally {
+      setApiLoading(false);
+    }
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmitHandler)} noValidate>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            {...register('make')}
-            fullWidth
-            label={t('vehicles.make')}
-            error={!!errors.make}
-            helperText={errors.make && t(errors.make.message as string)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            {...register('model')}
-            fullWidth
-            label={t('vehicles.model')}
-            error={!!errors.model}
-            helperText={errors.model && t(errors.model.message as string)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            {...register('year', { valueAsNumber: true })}
-            fullWidth
-            type="number"
-            label={t('vehicles.year')}
-            error={!!errors.year}
-            helperText={errors.year && t(errors.year.message as string)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            {...register('licensePlate')}
-            fullWidth
-            label={t('vehicles.licensePlate')}
-            error={!!errors.licensePlate}
-            helperText={errors.licensePlate && t(errors.licensePlate.message as string)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            {...register('vin')}
-            fullWidth
-            label={t('vehicles.vin')}
-            error={!!errors.vin}
-            helperText={errors.vin && t(errors.vin.message as string)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            {...register('color')}
-            fullWidth
-            label={t('vehicles.color')}
-            error={!!errors.color}
-            helperText={errors.color && t(errors.color.message as string)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
-            {onCancel && (
-              <Button onClick={onCancel} disabled={loading}>
-                {t('common.cancel')}
-              </Button>
+    <Paper elevation={2} sx={{ p: 3 }}>
+      <Typography variant="h6" component="h2" gutterBottom>
+        {initialData ? t('vehicles.editVehicle') : t('vehicles.newVehicle')}
+      </Typography>
+
+      {apiError && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {apiError}
+        </Alert>
+      )}
+
+      <Box component="form" onSubmit={handleSubmit} noValidate>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="make"
+              label={t('vehicles.make')}
+              value={formData.make}
+              onChange={handleChange}
+              error={!!validationErrors.make}
+              helperText={validationErrors.make}
+              required
+              disabled={apiLoading}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="model"
+              label={t('vehicles.model')}
+              value={formData.model}
+              onChange={handleChange}
+              error={!!validationErrors.model}
+              helperText={validationErrors.model}
+              required
+              disabled={apiLoading}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="year"
+              label={t('vehicles.year')}
+              type="number"
+              value={formData.year}
+              onChange={handleChange}
+              error={!!validationErrors.year}
+              helperText={validationErrors.year}
+              required
+              disabled={apiLoading}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="licensePlate"
+              label={t('vehicles.licensePlate')}
+              value={formData.licensePlate}
+              onChange={handleChange}
+              error={!!validationErrors.licensePlate}
+              helperText={validationErrors.licensePlate}
+              required
+              disabled={apiLoading}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="vin"
+              label={t('vehicles.vin')}
+              value={formData.vin}
+              onChange={handleChange}
+              error={!!validationErrors.vin}
+              helperText={validationErrors.vin}
+              disabled={apiLoading}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              name="color"
+              label={t('vehicles.color')}
+              value={formData.color}
+              onChange={handleChange}
+              error={!!validationErrors.color}
+              helperText={validationErrors.color}
+              disabled={apiLoading}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            {validationErrors.customerId && (
+              <Alert severity="warning">{validationErrors.customerId}</Alert>
             )}
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={loading}
-            >
-              {t('common.save')}
-            </Button>
-          </Box>
+            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end', mt: 2 }}>
+              {onCancel && (
+                <Button onClick={onCancel} disabled={apiLoading}>
+                  {t('common.cancel')}
+                </Button>
+              )}
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={apiLoading}
+                startIcon={apiLoading ? <CircularProgress size={20} /> : null}
+              >
+                {initialData ? t('common.save') : t('common.create')}
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </Paper>
   );
 };
 
